@@ -19,7 +19,10 @@ class Sample:
         self.y = y
 
 def preProcessCytofData(data):
-    return np.log(1+data)
+    return np.log(1 + data)
+
+def postProcessCytofData(data):
+    return np.exp(data - 1)
 
 def preProcessSamplesCytofData(samples):
     for i in range(len(samples)):    
@@ -27,6 +30,11 @@ def preProcessSamplesCytofData(samples):
         #s = Sample(preProcessCytofData(samples[i].X), samples[i].y)
     return samples  
 
+def postProcessSamplesCytofData(samples):
+    for i in range(len(samples)):    
+        samples[i].X = postProcessCytofData(samples[i].X)
+        #s = Sample(preProcessCytofData(samples[i].X), samples[i].y)
+    return samples  
     
 def getCytofMMDDataFromCsv(sample1Path, sample1LabelsPath, sample2Path, sample2LabelsPath, iEqualizeMixtureCoeffs): 
     print('loading data') 

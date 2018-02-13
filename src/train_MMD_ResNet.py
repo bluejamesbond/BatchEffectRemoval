@@ -50,7 +50,7 @@ if confirm(message="Use an existing model?") == True:
     calibratedSource = calibMMDNet.predict(source, verbose=1)
 
     file = open(saveFile('Save the output', wildcard="*.csv"), "w+")
-    file.write('\n'.join(','.join('%0.3f' % x for x in y) for y in preprocessor.inverse_transform(calibratedSource)))
+    file.write('\n'.join(','.join('%0.3f' % x for x in y) for y in dh.postProcessCytofData(preprocessor.inverse_transform(calibratedSource))))
     file.close()
 
     exit(0)
@@ -207,6 +207,6 @@ file.close()
 calibMMDNet.save_weights(saveFile('Save the weights', wildcard="*.h5"))
 
 file = open(saveFile('Save the output', wildcard="*.csv"), "w+")
-file.write('\n'.join(','.join('%0.3f' %x for x in y) for y in preprocessor.inverse_transform(calibratedSource)))
+file.write('\n'.join(','.join('%0.3f' %x for x in y) for y in dh.postProcessCytofData(preprocessor.inverse_transform(calibratedSource))))
 file.close()
 
